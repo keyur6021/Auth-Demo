@@ -4,7 +4,6 @@ import { Box } from "@mui/material";
 
 const Dashboard = () => {
   const loginUser = JSON.parse(localStorage.getItem("authUser"));
-  console.log("loginUser===", loginUser);
   return (
     <div>
       <Header loginUser={loginUser} />
