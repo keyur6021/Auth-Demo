@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import Header from "./Header";
 import { Box } from "@mui/material";
+import CustomizedTables from "./Table";
+import { PRODUCT } from "./redux/actions/product";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const loginUser = JSON.parse(localStorage.getItem("authUser"));
+  const AllProductData = useSelector((state)=> state?.product?.product)
+  const rows = AllProductData?.products?.map((data,index)=>{
+    return {
+      title:data?.title,
+      description:data?.description,
+      price:data?.price,
+      rating:data?.rating,
+      stock:data?.stock
+    }
+  })
+  console.log("rows===", rows);
+ const dispatch = useDispatch();
+  const productData =  useCallback((data)=>{
+    dispatch({type:PRODUCT,payload:data})
+  },[])
+
+  const productList = async()=>{
+    try{
+      const response = await fetch('https://dummyjson.com/products');
+      const res = await response.json();
+      productData(res)
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+useEffect(()=>{
+  productList()
+},[])
+
   return (
     <div>
       <Header loginUser={loginUser} />
@@ -14,6 +47,10 @@ const Dashboard = () => {
       {
         loginUser?.role === 'superAdmin' && loginUser?.username==='alpesh' &&
       <Box className='header'>This Access for SuperAdmin only</Box>
+      }
+      {
+        loginUser?.role === 'admin' &&
+          <CustomizedTables rows={rows} />
       }
     </div>
   );

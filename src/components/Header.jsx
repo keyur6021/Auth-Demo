@@ -11,8 +11,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Header({loginUser}) {
     const navigate = useNavigate()
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1}}>
+      <AppBar position="static" sx={{background:'black', colo:'white' }}>
         <Toolbar>
           <IconButton
             size="large"
