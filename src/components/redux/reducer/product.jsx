@@ -1,7 +1,8 @@
-import { PRODUCT } from "../actions/product";
+import { PRODUCT, SINGLE_PRODUCT } from "../actions/product";
 
 const initialState = {
-    product:{}
+    product:{},
+    singleProduct:{}
 }
 
 export const productReducer = (state = initialState, action) =>{
@@ -11,7 +12,13 @@ export const productReducer = (state = initialState, action) =>{
                ...state,
                 product: action.payload
             }
+            case SINGLE_PRODUCT:
+             return {
+                ...state,
+                singleProduct:action.payload
+             }
         default:
             return state;
     }
+    
 }

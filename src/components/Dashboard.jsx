@@ -2,12 +2,14 @@ import React, { useCallback, useEffect } from "react";
 import Header from "./Header";
 import { Box } from "@mui/material";
 import CustomizedTables from "./Table";
-import { PRODUCT } from "./redux/actions/product";
+import { PRODUCT, SINGLE_PRODUCT } from "./redux/actions/product";
 import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const loginUser = JSON.parse(localStorage.getItem("authUser"));
   const AllProductData = useSelector((state)=> state?.product?.product)
+  const singleProductResoponse = useSelector((state)=> state?.product?.singleProduct)
+  console.log("singleProductResoponse==", singleProductResoponse)
   const rows = AllProductData?.products?.map((data,index)=>{
     return {
       title:data?.title,
@@ -32,9 +34,22 @@ const Dashboard = () => {
       console.log(err);
     }
   }
+   const singleProductList = async()=>{
+    try{
+      const response = await fetch('https://dummyjson.com/products/1');
+      const res = await response.json();
+      dispatch({type:SINGLE_PRODUCT,payload:res})
+    }catch(err){
+      console.log(err);
+    }
+   }
 
 useEffect(()=>{
-  productList()
+  if(loginUser?.role === 'admin'){
+    productList()
+  }else if(loginUser?.role === 'superAdmin'){
+    singleProductList()
+  }
 },[])
 
   return (
@@ -51,6 +66,10 @@ useEffect(()=>{
       {
         loginUser?.role === 'admin' &&
           <CustomizedTables rows={rows} />
+      }
+       {
+        loginUser?.role === 'superAdmin' &&
+          <CustomizedTables rows={[singleProductResoponse]} />
       }
     </div>
   );
