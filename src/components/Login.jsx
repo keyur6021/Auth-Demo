@@ -17,13 +17,14 @@ import { LOGIN } from "./redux/actions/login";
 import { useCallback } from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import logo from "./../assets/images/logo.png";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,7 +41,7 @@ export default function SignInSide() {
   const LoginHere = useCallback((data) => {
     dispatch({ type: LOGIN, payload: data });
   }, []);
-//  ! if login using dummy api 
+  //  ! if login using dummy api
   // const loginAdd = async (value) => {
   //   const response = await fetch("https://dummyjson.com/auth/login", {
   //     method: "POST",
@@ -81,29 +82,36 @@ export default function SignInSide() {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
-              my: 8,
-              mx: 4,
               display: "flex",
               flexDirection: "column",
+              justifyContent: "center",
               alignItems: "center",
+              height: "100vh",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <img src={logo} alt="logo" className="auth-logo" />
+            <div>
+              <div className="title">Wel-Come To</div>
+              <div className="title">
+                <span className="sub_title"> Keyur Mulani's website</span>
+              </div>
+            </div>
+            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
-            </Typography>
+            </Typography> */}
             <Formik
               initialValues={{
                 username: "",
                 password: "",
-                role:''
+                role: "",
               }}
               validationSchema={LoginSchema}
               onSubmit={(values) => {
-                 localStorage.setItem("authUser", JSON.stringify(values))
-                 navigate('/dashboard')
+                localStorage.setItem("authUser", JSON.stringify(values));
+                navigate("/dashboard");
               }}
             >
               {({
@@ -116,7 +124,6 @@ export default function SignInSide() {
                 dirty,
               }) => (
                 <Form onSubmit={handleSubmit}>
-                  {/* <Box component="form" sx={{ mt: 1 }}> */}
                   <Grid container spacing={2} className="horizontal-line">
                     <Grid item xs={12}>
                       <Box>
@@ -132,8 +139,11 @@ export default function SignInSide() {
                             label="Age"
                             onChange={handleChange}
                           >
-                            <MenuItem value={'admin'}> Admin </MenuItem>
-                            <MenuItem value={'superAdmin'}> Super Admin </MenuItem>
+                            <MenuItem value={"admin"}> Admin </MenuItem>
+                            <MenuItem value={"superAdmin"}>
+                              {" "}
+                              Super Admin{" "}
+                            </MenuItem>
                           </Select>
                         </FormControl>
                       </Box>
@@ -189,15 +199,7 @@ export default function SignInSide() {
                     >
                       Sign In
                     </Button>
-                    <Grid container>
-                      <Grid item xs>
-                        <Link href="#" variant="body2">
-                          Forgot password?
-                        </Link>
-                      </Grid>
-                    </Grid>
                   </Grid>
-                  {/* </Box> */}
                 </Form>
               )}
             </Formik>
