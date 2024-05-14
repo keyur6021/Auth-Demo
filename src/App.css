@@ -75,3 +75,65 @@
   color:#3ec777;
   margin-top:0px;
 }
+.modal_title{
+  font-weight: bold !important;
+ text-align: center;
+ color: #577278;
+}
+.modal_description{
+  text-align: center;
+  font-weight: 600 !important;
+  color: #767676;
+}
+.logout{
+  background-color: rgb(185, 48, 48) !important;
+ color: white !important;
+ font-weight: 800 !important;
+}
+.cancel{
+  background-color: #577278 !important;
+ color: white !important;
+ font-weight: 800 !important;
+}
+.parent_box{
+   display: flex;
+   justify-content: space-around;
+   margin-top: 25px;
+}
+.parent_box_data{
+   display: flex;
+   justify-content:center;
+   align-items: center;
+   border: 2px dotted rgb(145, 145, 229);
+   border-radius: 15px;
+   height: 180px;
+   width: 180px;
+   font-weight: 800;
+   color: rgb(145, 145, 229);
+}
+.parent_space{
+   display: flex;
+   justify-content: center;
+   gap: 15px;
+   cursor: pointer;
+}
+.check{
+   display: flex;
+   gap: 15px;
+}
+.error-msg{
+  color: rgb(236, 103, 103);
+  line-height: 30px;
+  font-size: 45px;
+  padding: 2rem;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+}
+.wrong-btn{
+ background-color: rgb(230, 60, 60) !important;
+ font-weight: 800 !important;
+ margin-top: 15px !important;
+}

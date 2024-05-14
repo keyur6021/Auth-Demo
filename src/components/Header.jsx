@@ -7,9 +7,16 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import CommonModal from './CommonModal';
+import { useState } from 'react';
 
 export default function Header({loginUser}) {
     const navigate = useNavigate()
+    const [open, setOpen] = useState(false)
+   const handleClose = ()=> {
+    setOpen(false)
+   }
+   
   return (
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="static" sx={{background:'black', colo:'white' }}>
@@ -20,7 +27,7 @@ export default function Header({loginUser}) {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-          >
+          > 
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -28,11 +35,15 @@ export default function Header({loginUser}) {
           </Typography>
           <Button color="inherit" onClick={()=>{
             if(loginUser){
-             localStorage.removeItem('authUser')
+             setOpen(true)
+            } else{
+              navigate('/')
             }
-            navigate('/')
-          }}>{loginUser ? 'LOGOUT': 'LOGIN'}</Button>
+          }}>
+            {loginUser ? 'LOGOUT': 'LOGIN'}
+            </Button>
         </Toolbar>
+        <CommonModal open={open} handleClose={handleClose} />
       </AppBar>
     </Box>
   );
